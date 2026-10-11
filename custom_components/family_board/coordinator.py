@@ -28,6 +28,9 @@ from .const import (
     CONF_DAYS_AHEAD,
     CONF_DEFAULT_POINTS,
     CONF_EVENTS_CALENDARS,
+    CONF_EVENTS_TAGS,
+    CONF_KIND,
+    ENTRY_MICROSOFT,
     CONF_HOME_A_NAME,
     CONF_HOME_A_TZ,
     CONF_HOME_B_NAME,
@@ -227,6 +230,22 @@ class FamilyBoardCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             return None
         return parse_items(response.get(entity_id), tz)
 
+    async def _tagged(self, start: datetime, end: datetime, tags: list[str], tz: ZoneInfo) -> list[Occurrence]:
+        """Tagged events from every signed-in Microsoft account on this installation."""
+        out: list[Occurrence] = []
+        for entry in self.hass.config_entries.async_entries(DOMAIN):
+            account = getattr(entry, "runtime_data", None)
+            if entry.data.get(CONF_KIND) != ENTRY_MICROSOFT or account is None or not hasattr(account, "async_tagged"):
+                continue
+            for ev in await account.async_tagged(start, end, tags):
+                s, e = ev["start"], ev["end"]
+                if not isinstance(s, datetime):
+                    s = datetime.combine(s, datetime.min.time(), tzinfo=tz)
+                    e = datetime.combine(e, datetime.min.time(), tzinfo=tz)
+                out.append(Occurrence(summary=ev["summary"], start=s, end=e, all_day=bool(ev.get("all_day")), calendar=ev["calendar"],
+                                      location=ev.get("location"), description=ev.get("description")))
+        return out
+
     async def _async_update_data(self) -> dict[str, Any]:
         tz: ZoneInfo = dt_util.get_default_time_zone()  # type: ignore[assignment]
         now = dt_util.now()
@@ -270,7 +289,13 @@ class FamilyBoardCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             if response is None:
                 slow_ok = False
             else:
-                self._slow["events"] = dedupe(parse_events(response, tz))
+                board_occs = parse_events(response, tz)
+                # and anything on a tracked Outlook calendar wearing one of the board's tags (Concert, Sports, ...)
+                tags = [str(t) for t in self._list(CONF_EVENTS_TAGS)]
+                if tags:
+                    board_occs += await self._tagged(day_start, day_start + timedelta(days=board_days + 1), tags, tz)
+                assign_people(board_occs, people)
+                self._slow["events"] = dedupe(board_occs)
             response = await self._events(self._list(CONF_BIRTHDAY_CALENDARS), day_start, day_start + timedelta(days=BIRTHDAY_DAYS + 1))
             if response is None:
                 slow_ok = False

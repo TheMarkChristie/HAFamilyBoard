@@ -53,6 +53,8 @@ from .const import (
     CONF_DAYS_AHEAD,
     CONF_DEFAULT_POINTS,
     CONF_EVENTS_CALENDARS,
+    CONF_EVENTS_TAGS,
+    DEFAULT_EVENTS_TAGS,
     CONF_HOME_A_NAME,
     CONF_HOME_A_TZ,
     CONF_HOME_B_NAME,
@@ -124,6 +126,8 @@ CALENDARS_SCHEMA = vol.Schema({
     vol.Optional(CONF_HOUSEHOLD_CALENDARS): _calendars(),
     vol.Optional(CONF_BIRTHDAY_CALENDARS): _calendars(),
     vol.Optional(CONF_EVENTS_CALENDARS): _calendars(),
+    vol.Optional(CONF_EVENTS_TAGS, default=DEFAULT_EVENTS_TAGS): SelectSelector(
+        SelectSelectorConfig(options=DEFAULT_EVENTS_TAGS, multiple=True, custom_value=True, mode=SelectSelectorMode.LIST)),
     vol.Optional(CONF_TRIPS_CALENDARS): _calendars(),
 })
 

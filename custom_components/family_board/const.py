@@ -85,3 +85,7 @@ DEFAULT_CLIENT_ID = "6ba638f9-389d-4d0a-b862-0350e84e23bf"   # the Family Hub ap
 DEFAULT_TENANT = "common"
 DEFAULT_ACCOUNT_SCAN = 5
 ACCOUNT_DAYS_AHEAD = 14                            # how far an account's calendar entities look for their current/next event
+
+# the Events board also takes any event, on any tracked Outlook calendar, carrying one of these categories
+CONF_EVENTS_TAGS = "events_tags"
+DEFAULT_EVENTS_TAGS = ["Concert", "Sports", "Theatre", "Conference"]

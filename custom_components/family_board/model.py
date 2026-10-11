@@ -252,6 +252,12 @@ def events_board(occurrences: Iterable[Occurrence], today: date, days: int, tz: 
     return out
 
 
+def has_tag(categories: Iterable[str] | None, tags: Iterable[str]) -> bool:
+    """Whether an event's Outlook categories put it on the Events board: matched trimmed and case-insensitively."""
+    wanted = {str(t).strip().casefold() for t in tags if str(t).strip()}
+    return any(str(c).strip().casefold() in wanted for c in categories or [])
+
+
 # ---- trips --------------------------------------------------------------------------------------------------------
 
 

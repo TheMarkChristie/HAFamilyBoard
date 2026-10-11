@@ -60,8 +60,9 @@ class AccountCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.client = GraphClient(async_get_clientsession(hass), str(entry.data.get(CONF_CLIENT_ID) or DEFAULT_CLIENT_ID),
                                   Tokens.from_dict(entry.data.get(CONF_TOKENS) or {}), str(entry.data.get(CONF_TENANT) or DEFAULT_TENANT),
                                   on_tokens=self._store_tokens)
-        self._live: dict[tuple[str, str, str], tuple[float, list[CalendarEvent]]] = {}
+        self._live: dict[tuple[str, str, str], tuple[float, list[dict[str, Any]]]] = {}
         self.options_seen = dict(entry.options)
+        self.entity_ids: dict[str, str] = {}        # calendar id -> the calendar entity made for it, filled by calendar.py
 
     @property
     def account(self) -> dict[str, Any]:
@@ -113,8 +114,9 @@ class AccountCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             raise UpdateFailed(f"{self.entry.title}: {err}") from err
         return data
 
-    async def async_events(self, cal_id: str, start: datetime, end: datetime) -> list[CalendarEvent]:
-        """A calendar's events for any window, straight from Graph, with a short memory for repeated asks."""
+    async def async_raw_events(self, cal_id: str, start: datetime, end: datetime) -> list[dict[str, Any]]:
+        """A calendar's events for any window, straight from Graph and parsed (categories included), with a short
+        memory for repeated asks."""
         key = (cal_id, start.isoformat(), end.isoformat())
         hit = self._live.get(key)
         if hit and time.monotonic() - hit[0] < LIVE_CACHE_SECONDS:
@@ -126,8 +128,33 @@ class AccountCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             raise ConfigEntryAuthFailed(str(err)) from err
         except GraphError as err:
             raise UpdateFailed(str(err)) from err
-        events = [to_calendar_event(ev) for ev in (parse_event(r, tz) for r in raws) if ev]
+        events = [ev for ev in (parse_event(r, tz) for r in raws) if ev]
         if len(self._live) > 64:
             self._live.clear()
         self._live[key] = (time.monotonic(), events)
         return events
+
+    async def async_events(self, cal_id: str, start: datetime, end: datetime) -> list[CalendarEvent]:
+        """The same, in the shape the calendar entity hands to Home Assistant."""
+        return [to_calendar_event(ev) for ev in await self.async_raw_events(cal_id, start, end)]
+
+    async def async_tagged(self, start: datetime, end: datetime, tags: list[str]) -> list[dict[str, Any]]:
+        """Every event on this account's tracked calendars carrying one of the Events board's tags, each marked with
+        the calendar entity it belongs to."""
+        out: list[dict[str, Any]] = []
+        wanted = {t.strip().casefold() for t in tags if t.strip()}
+        if not wanted:
+            return out
+        for cal_id in self.calendar_ids:
+            entity_id = self.entity_ids.get(cal_id)
+            if not entity_id:
+                continue
+            try:
+                events = await self.async_raw_events(cal_id, start, end)
+            except UpdateFailed as err:
+                _LOGGER.warning("%s: tagged events of %s not read: %s", self.name, entity_id, err)
+                continue
+            for ev in events:
+                if any(str(c).strip().casefold() in wanted for c in ev.get("categories") or []):
+                    out.append({**ev, "calendar": entity_id})
+        return out

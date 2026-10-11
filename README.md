@@ -137,3 +137,5 @@ six cards in headless Chrome from states the model builds, at phone and wall wid
 redraws the icon.
 
 MIT licence. Copyright (c) 2026 Mark Christie.
+
+- **Events board tags.** Any event on a signed-in account's calendars carrying one of the board's Outlook categories (Concert, Sports, Theatre, Conference by default, editable under Configure) joins the Events board, on top of the dedicated events calendars.

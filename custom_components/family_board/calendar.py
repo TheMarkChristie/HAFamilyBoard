@@ -45,6 +45,11 @@ class GraphCalendar(CoordinatorEntity[AccountCoordinator], CalendarEntity):
         self.entity_id = f"calendar.{object_id}"
         self._attr_device_info = account_device(coordinator)
 
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        # the id the registry settled on, so the board can name this calendar on tagged events
+        self.coordinator.entity_ids[self.cal_id] = self.entity_id
+
     def _slice(self) -> dict:
         return (self.coordinator.data or {}).get("calendars", {}).get(self.cal_id) or {}
 

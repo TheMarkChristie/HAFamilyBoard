@@ -180,3 +180,9 @@ def test_events_board_lists_what_is_ahead_with_days_to_go():
     out = m.events_board(occs, TODAY, 365, OSLO)
     assert [e["summary"] for e in out] == ["Rosenborg v Molde", "Ice Nine Kills"]
     assert out[0]["days"] == 3 and out[1]["all_day"]
+
+
+def test_tags_match_outlook_categories_loosely():
+    assert m.has_tag(["Concert", "Fun"], ["concert", "Sports"])
+    assert m.has_tag([" sports "], ["Sports"])
+    assert not m.has_tag(["Work"], ["Concert"]) and not m.has_tag(None, ["Concert"]) and not m.has_tag(["Concert"], [])
