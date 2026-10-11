@@ -124,9 +124,10 @@ class _PersonBase(_Base):
         self._attr_suggested_object_id = f"family_board_{kind}_{person.id}"
         self.entity_id = f"sensor.family_board_{kind}_{person.id}"
         self._attr_icon = icon
+        # no via_device: Home Assistant 2026.10 deprecates the identifier form, and the hierarchy adds nothing here
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{coordinator.entry.entry_id}:{person.id}")}, name=person.name, manufacturer=NAME,
-            model=person.role.capitalize(), entry_type=DeviceEntryType.SERVICE, via_device=(DOMAIN, coordinator.entry.entry_id))
+            model=person.role.capitalize(), entry_type=DeviceEntryType.SERVICE)
 
     def _mine(self) -> dict[str, Any]:
         return ((self.coordinator.data or {}).get("chores") or {}).get(self.person_id) or {}

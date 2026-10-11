@@ -242,9 +242,12 @@ class FamilyBoardConfigFlow(ConfigFlow, domain=DOMAIN):
         """Show the code and wait, on the same screen, for the sign-in to be finished on a phone."""
         challenge = self._challenge or {}
         if self._task is None:
-            self._task = self.hass.async_create_task(poll_device_login(
+            # a background task: a sign-in started while Home Assistant is still finishing its start-up must not be
+            # one of the tasks the start-up waits for (it did, once, for the whole fifteen minutes of a code)
+            self._task = self.hass.async_create_background_task(poll_device_login(
                 async_get_clientsession(self.hass), self._client_id, str(challenge.get("device_code") or ""),
-                int(challenge.get("interval") or 5), int(challenge.get("expires_in") or 900), self._tenant))
+                int(challenge.get("interval") or 5), int(challenge.get("expires_in") or 900), self._tenant),
+                name="family_board microsoft sign-in", eager_start=True)
         if not self._task.done():
             return self.async_show_progress(step_id="signin", progress_action="signin", progress_task=self._task,
                                             description_placeholders={"url": str(challenge.get("verification_uri") or ""),
