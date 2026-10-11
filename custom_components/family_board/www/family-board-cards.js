@@ -53,8 +53,8 @@
     .row.first { border-top: none; }
     .when { font-size: 0.9em; color: var(--secondary-text-color); font-variant-numeric: tabular-nums; white-space: nowrap; }
     .what { min-width: 0; color: var(--primary-text-color); }
-    .what .t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .what .w { font-size: 0.8em; color: var(--secondary-text-color); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .what .t { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .what .w { display: block; font-size: 0.8em; color: var(--secondary-text-color); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .dots { display: flex; gap: 3px; }
     .dot { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
            font-size: 0.68em; font-weight: 700; color: var(--primary-text-color); background: color-mix(in srgb, var(--c) 25%, transparent);
@@ -150,14 +150,37 @@
     if (ev.all_day) return s.allDay;
     return f.time.format(new Date(ev.start));
   }
+  function initialsOf(name) {
+    const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return "?";
+    return parts.length > 1 ? (parts[0][0] + parts[1][0]).toUpperCase() : parts[0][0].toUpperCase();
+  }
+  /* one label per person, grown only as far as needed to stop two reading the same: Mark and Malin become Mar and Mal */
+  function labelsFor(list) {
+    const labels = {};
+    for (const p of list) labels[p.id] = initialsOf(p.short || p.name);
+    for (let length = 2; length <= 3; length++) {
+      const counts = {};
+      for (const p of list) counts[labels[p.id]] = (counts[labels[p.id]] || 0) + 1;
+      if (Object.values(counts).every((n) => n === 1)) break;
+      for (const p of list) {
+        if (counts[labels[p.id]] < 2) continue;
+        const words = String(p.short || p.name || "").trim().split(/\s+/).filter(Boolean);
+        if (words.length !== 1) continue;
+        const w = words[0];
+        labels[p.id] = w[0].toUpperCase() + w.slice(1, Math.min(length, w.length)).toLowerCase();
+      }
+    }
+    return labels;
+  }
   function initials(p) {
-    const n = (p.short || p.name || "?").trim();
-    const parts = n.split(/\s+/).filter(Boolean);
-    return parts.length > 1 ? (parts[0][0] + parts[1][0]).toUpperCase() : n.slice(0, 2);
+    return p.label || initialsOf(p.short || p.name);
   }
   function peopleOf(st) {
+    const list = st.attributes.people || [];
+    const labels = labelsFor(list);
     const map = {};
-    for (const p of (st.attributes.people || [])) map[p.id] = p;
+    for (const p of list) map[p.id] = Object.assign({}, p, { label: labels[p.id] });
     return map;
   }
   function dots(ids, people, max) {
@@ -415,7 +438,7 @@
       const title = this._config.title === null ? s.chores : this._config.title;
       let html = header(title, "");
       for (const st of this._states()) {
-        const a = st.attributes, p = a.person || { name: st.entity_id, colour: "#888" };
+        const a = st.attributes, p = (a.person && peopleOf(st)[a.person.id]) || a.person || { name: st.entity_id, colour: "#888" };
         const open = a.open || [], done = a.done_today || [];
         for (const c of open) if (this._pending.has(c.uid) && !open.some((o) => o.uid === c.uid && false)) { /* keep */ }
         for (const uid of [...this._pending]) if (!open.some((c) => c.uid === uid)) this._pending.delete(uid);
