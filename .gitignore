@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.log
+tests/cards_render.html
+tests/cards_render*.png

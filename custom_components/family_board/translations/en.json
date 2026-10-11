@@ -1,0 +1,139 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "The household and its homes",
+        "description": "Name the household and the two homes it lives between. The board shows every time on both homes' clocks whenever they differ.",
+        "data": {
+          "household": "Household name",
+          "home_a_name": "First home",
+          "home_a_tz": "First home's time zone",
+          "home_b_name": "Second home",
+          "home_b_tz": "Second home's time zone"
+        }
+      },
+      "calendars": {
+        "title": "Which calendars feed the board",
+        "description": "All optional, and all changeable later under Configure. People's own calendars are set on each person. Trips are also found by their titles (flight numbers, ferry, train) on everyone's calendars.",
+        "data": {
+          "household_calendars": "Household calendars (events for everyone)",
+          "birthday_calendars": "Birthday calendars (Outlook's Birthdays, or a shared one)",
+          "events_calendars": "Events board calendars (what you have tickets for)",
+          "trips_calendars": "Trip calendars (every event on these is a journey)"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "There is already a Family Board. Configure it, or add people from its page."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Family Board",
+        "description": "The homes, the calendars and the tuning. Points are read off a chore's title, for example \"Bins (2 pts)\"; a chore without one is worth the default.",
+        "data": {
+          "household": "Household name",
+          "home_a_name": "First home",
+          "home_a_tz": "First home's time zone",
+          "home_b_name": "Second home",
+          "home_b_tz": "Second home's time zone",
+          "household_calendars": "Household calendars (events for everyone)",
+          "birthday_calendars": "Birthday calendars",
+          "events_calendars": "Events board calendars",
+          "trips_calendars": "Trip calendars",
+          "trip_pattern": "Trip pattern (regular expression matched against titles and locations)",
+          "days_ahead": "Days in the week-ahead list",
+          "board_days": "Days the Events board looks ahead",
+          "trip_days": "Days trips are looked for",
+          "scan_minutes": "Minutes between reads",
+          "default_points": "Points for a chore with none in its title",
+          "count_vanished_as_done": "A chore that disappears from its list counts as done"
+        }
+      }
+    }
+  },
+  "config_subentries": {
+    "person": {
+      "initiate_flow": {
+        "user": "Add a person",
+        "reconfigure": "Edit person"
+      },
+      "entry_type": "Person",
+      "step": {
+        "user": {
+          "title": "Add a person",
+          "description": "Their calendars give them a column on Today; their to-do list is their chores. A birthday here puts them on the birthdays list with their age.",
+          "data": {
+            "name": "Name",
+            "short_name": "Short name (for a narrow column)",
+            "colour": "Colour",
+            "role": "Role",
+            "calendars": "Their calendars",
+            "chores": "Their chores list",
+            "birthday": "Birthday"
+          }
+        },
+        "reconfigure": {
+          "title": "Edit person",
+          "data": {
+            "name": "Name",
+            "short_name": "Short name (for a narrow column)",
+            "colour": "Colour",
+            "role": "Role",
+            "calendars": "Their calendars",
+            "chores": "Their chores list",
+            "birthday": "Birthday"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Give the person a name.",
+        "already_configured": "There is already somebody with that name."
+      },
+      "abort": {
+        "reconfigure_successful": "Saved."
+      }
+    },
+    "birthday": {
+      "initiate_flow": {
+        "user": "Add a birthday",
+        "reconfigure": "Edit birthday"
+      },
+      "entry_type": "Birthday",
+      "step": {
+        "user": {
+          "title": "Add a birthday",
+          "description": "Somebody the house keeps a date for and nothing else: a grandparent, an uncle, a school friend. They get no column and no chores, just the date every year.",
+          "data": {
+            "name": "Name",
+            "birthday": "Birthday"
+          }
+        },
+        "reconfigure": {
+          "title": "Edit birthday",
+          "data": {
+            "name": "Name",
+            "birthday": "Birthday"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Give them a name.",
+        "already_configured": "There is already a birthday for that name."
+      },
+      "abort": {
+        "reconfigure_successful": "Saved."
+      }
+    }
+  },
+  "selector": {
+    "role": {
+      "options": {
+        "adult": "Adult",
+        "child": "Child",
+        "guest": "Guest"
+      }
+    }
+  }
+}

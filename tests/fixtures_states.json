@@ -1,0 +1,1000 @@
+[
+ {
+  "entity_id": "sensor.family_board_today",
+  "state": "7",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Today",
+   "family_board": "today",
+   "all_day": [],
+   "columns": [
+    {
+     "person": "mark",
+     "events": [
+      {
+       "summary": "Stand-up",
+       "start": "2026-10-11T09:00:00+02:00",
+       "end": "2026-10-11T10:00:00+02:00",
+       "all_day": false,
+       "location": "Teams",
+       "description": null,
+       "people": [
+        "mark"
+       ],
+       "calendar": "calendar.mark"
+      },
+      {
+       "summary": "Dentist",
+       "start": "2026-10-11T13:00:00+02:00",
+       "end": "2026-10-11T14:30:00+02:00",
+       "all_day": false,
+       "location": "Ski tannlegesenter",
+       "description": null,
+       "people": [
+        "mark"
+       ],
+       "calendar": "calendar.mark"
+      },
+      {
+       "summary": "Dinner at Granny's",
+       "start": "2026-10-11T18:30:00+02:00",
+       "end": "2026-10-11T20:00:00+02:00",
+       "all_day": false,
+       "location": null,
+       "description": null,
+       "people": [
+        "mark",
+        "malin"
+       ],
+       "calendar": "calendar.family"
+      }
+     ]
+    },
+    {
+     "person": "malin",
+     "events": [
+      {
+       "summary": "Fris\u00f8r",
+       "start": "2026-10-11T16:00:00+02:00",
+       "end": "2026-10-11T17:00:00+02:00",
+       "all_day": false,
+       "location": null,
+       "description": null,
+       "people": [
+        "malin"
+       ],
+       "calendar": "calendar.malin"
+      },
+      {
+       "summary": "Dinner at Granny's",
+       "start": "2026-10-11T18:30:00+02:00",
+       "end": "2026-10-11T20:00:00+02:00",
+       "all_day": false,
+       "location": null,
+       "description": null,
+       "people": [
+        "mark",
+        "malin"
+       ],
+       "calendar": "calendar.family"
+      }
+     ]
+    },
+    {
+     "person": "nicolai",
+     "events": [
+      {
+       "summary": "School",
+       "start": "2026-10-11T08:00:00+02:00",
+       "end": "2026-10-11T14:00:00+02:00",
+       "all_day": false,
+       "location": null,
+       "description": null,
+       "people": [
+        "nicolai"
+       ],
+       "calendar": "calendar.nicolai"
+      },
+      {
+       "summary": "Swimming",
+       "start": "2026-10-11T17:30:00+02:00",
+       "end": "2026-10-11T18:30:00+02:00",
+       "all_day": false,
+       "location": "Langhushallen",
+       "description": null,
+       "people": [
+        "nicolai"
+       ],
+       "calendar": "calendar.nicolai"
+      }
+     ]
+    }
+   ],
+   "everyone": [
+    {
+     "summary": "Bins out",
+     "start": "2026-10-11T07:00:00+02:00",
+     "end": "2026-10-11T07:15:00+02:00",
+     "all_day": false,
+     "location": null,
+     "description": null,
+     "people": [],
+     "calendar": "calendar.household"
+    }
+   ],
+   "count": 7
+  }
+ },
+ {
+  "entity_id": "sensor.family_board_week",
+  "state": "9",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Week ahead",
+   "family_board": "week",
+   "days": [
+    {
+     "date": "2026-10-12",
+     "events": [
+      {
+       "summary": "Inset day",
+       "start": "2026-10-12T00:00:00+02:00",
+       "end": "2026-10-13T00:00:00+02:00",
+       "all_day": true,
+       "location": null,
+       "description": null,
+       "people": [
+        "nicolai"
+       ],
+       "calendar": "calendar.nicolai"
+      },
+      {
+       "summary": "Flight to Edinburgh (DY1356)",
+       "start": "2026-10-12T08:00:00+02:00",
+       "end": "2026-10-12T09:00:00+02:00",
+       "all_day": false,
+       "location": "Oslo Gardermoen (OSL) to Edinburgh (EDI)",
+       "description": null,
+       "people": [
+        "mark"
+       ],
+       "calendar": "calendar.mark"
+      }
+     ]
+    },
+    {
+     "date": "2026-10-13",
+     "events": [
+      {
+       "summary": "Plumber",
+       "start": "2026-10-13T09:00:00+02:00",
+       "end": "2026-10-13T12:00:00+02:00",
+       "all_day": false,
+       "location": null,
+       "description": null,
+       "people": [],
+       "calendar": "calendar.household"
+      },
+      {
+       "summary": "Book club",
+       "start": "2026-10-13T19:00:00+02:00",
+       "end": "2026-10-13T21:00:00+02:00",
+       "all_day": false,
+       "location": "Ingrid's",
+       "description": null,
+       "people": [
+        "malin"
+       ],
+       "calendar": "calendar.malin"
+      }
+     ]
+    },
+    {
+     "date": "2026-10-14",
+     "events": [
+      {
+       "summary": "Five-a-side",
+       "start": "2026-10-14T18:00:00+02:00",
+       "end": "2026-10-14T20:00:00+02:00",
+       "all_day": false,
+       "location": null,
+       "description": null,
+       "people": [
+        "mark"
+       ],
+       "calendar": "calendar.mark"
+      }
+     ]
+    },
+    {
+     "date": "2026-10-15",
+     "events": [
+      {
+       "summary": "Football",
+       "start": "2026-10-15T10:00:00+02:00",
+       "end": "2026-10-15T12:00:00+02:00",
+       "all_day": false,
+       "location": null,
+       "description": null,
+       "people": [
+        "nicolai"
+       ],
+       "calendar": "calendar.nicolai"
+      }
+     ]
+    },
+    {
+     "date": "2026-10-16",
+     "events": [
+      {
+       "summary": "Weekend in Perth",
+       "start": "2026-10-16T00:00:00+02:00",
+       "end": "2026-10-19T00:00:00+02:00",
+       "all_day": true,
+       "location": null,
+       "description": null,
+       "people": [
+        "mark",
+        "malin"
+       ],
+       "calendar": "calendar.family"
+      }
+     ]
+    },
+    {
+     "date": "2026-10-17",
+     "events": [
+      {
+       "summary": "Weekend in Perth",
+       "start": "2026-10-16T00:00:00+02:00",
+       "end": "2026-10-19T00:00:00+02:00",
+       "all_day": true,
+       "location": null,
+       "description": null,
+       "people": [
+        "mark",
+        "malin"
+       ],
+       "calendar": "calendar.family"
+      }
+     ]
+    },
+    {
+     "date": "2026-10-18",
+     "events": [
+      {
+       "summary": "Weekend in Perth",
+       "start": "2026-10-16T00:00:00+02:00",
+       "end": "2026-10-19T00:00:00+02:00",
+       "all_day": true,
+       "location": null,
+       "description": null,
+       "people": [
+        "mark",
+        "malin"
+       ],
+       "calendar": "calendar.family"
+      }
+     ]
+    }
+   ],
+   "days_ahead": 7
+  }
+ },
+ {
+  "entity_id": "sensor.family_board_birthdays",
+  "state": "4",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Birthdays",
+   "family_board": "birthdays",
+   "next": {
+    "name": "Granny Aileen",
+    "date": "2026-10-15",
+    "days": 4,
+    "age": null,
+    "person": null,
+    "source": "calendar"
+   },
+   "today_birthdays": [],
+   "upcoming": [
+    {
+     "name": "Granny Aileen",
+     "date": "2026-10-15",
+     "days": 4,
+     "age": null,
+     "person": null,
+     "source": "calendar"
+    },
+    {
+     "name": "Nicolai",
+     "date": "2026-10-15",
+     "days": 4,
+     "age": 10,
+     "person": "nicolai",
+     "source": "person"
+    },
+    {
+     "name": "Malin",
+     "date": "2026-11-02",
+     "days": 22,
+     "age": 44,
+     "person": "malin",
+     "source": "person"
+    },
+    {
+     "name": "Onkel Lars",
+     "date": "2026-11-20",
+     "days": 40,
+     "age": 58,
+     "person": null,
+     "source": "calendar"
+    },
+    {
+     "name": "Erin",
+     "date": "2027-02-28",
+     "days": 140,
+     "age": 11,
+     "person": null,
+     "source": "contact"
+    },
+    {
+     "name": "Mark",
+     "date": "2027-03-03",
+     "days": 143,
+     "age": 48,
+     "person": "mark",
+     "source": "person"
+    }
+   ],
+   "count": 6
+  }
+ },
+ {
+  "entity_id": "sensor.family_board_events",
+  "state": "3",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Events board",
+   "family_board": "events",
+   "events": [
+    {
+     "summary": "Rosenborg v Molde",
+     "start": "2026-10-13T19:00:00+02:00",
+     "end": "2026-10-13T22:00:00+02:00",
+     "all_day": false,
+     "location": "Lerkendal",
+     "description": null,
+     "people": [],
+     "calendar": "calendar.events",
+     "date": "2026-10-13",
+     "days": 2
+    },
+    {
+     "summary": "Ice Nine Kills",
+     "start": "2026-10-20T18:30:00+02:00",
+     "end": "2026-10-20T23:00:00+02:00",
+     "all_day": false,
+     "location": "Sentrum Scene",
+     "description": null,
+     "people": [],
+     "calendar": "calendar.events",
+     "date": "2026-10-20",
+     "days": 9
+    },
+    {
+     "summary": "St Johnstone v Dundee United",
+     "start": "2026-11-03T00:00:00+01:00",
+     "end": "2026-11-04T00:00:00+01:00",
+     "all_day": true,
+     "location": "McDiarmid Park",
+     "description": null,
+     "people": [],
+     "calendar": "calendar.events",
+     "date": "2026-11-03",
+     "days": 23
+    }
+   ],
+   "count": 3
+  }
+ },
+ {
+  "entity_id": "sensor.family_board_trip",
+  "state": "1",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Next trip",
+   "family_board": "trip",
+   "trip": {
+    "title": "Flight to Edinburgh (DY1356)",
+    "mode": "flight",
+    "flights": [
+     "DY1356"
+    ],
+    "from": "Oslo Gardermoen (OSL)",
+    "to": "Edinburgh (EDI)",
+    "location": "Oslo Gardermoen (OSL) to Edinburgh (EDI)",
+    "description": null,
+    "calendar": "calendar.mark",
+    "all_day": false,
+    "people": [
+     "mark"
+    ],
+    "depart": "2026-10-12T08:00:00+02:00",
+    "arrive": "2026-10-12T09:00:00+02:00",
+    "depart_clocks": {
+     "a": "07:00",
+     "b": "08:00",
+     "a_date": "2026-10-12",
+     "b_date": "2026-10-12",
+     "differs": true
+    },
+    "arrive_clocks": {
+     "a": "08:00",
+     "b": "09:00",
+     "a_date": "2026-10-12",
+     "b_date": "2026-10-12",
+     "differs": true
+    },
+    "date": "2026-10-12",
+    "days": 1,
+    "under_way": false,
+    "past": false
+   },
+   "trips": [
+    {
+     "title": "Flight to Edinburgh (DY1356)",
+     "mode": "flight",
+     "flights": [
+      "DY1356"
+     ],
+     "from": "Oslo Gardermoen (OSL)",
+     "to": "Edinburgh (EDI)",
+     "location": "Oslo Gardermoen (OSL) to Edinburgh (EDI)",
+     "description": null,
+     "calendar": "calendar.mark",
+     "all_day": false,
+     "people": [
+      "mark"
+     ],
+     "depart": "2026-10-12T08:00:00+02:00",
+     "arrive": "2026-10-12T09:00:00+02:00",
+     "depart_clocks": {
+      "a": "07:00",
+      "b": "08:00",
+      "a_date": "2026-10-12",
+      "b_date": "2026-10-12",
+      "differs": true
+     },
+     "arrive_clocks": {
+      "a": "08:00",
+      "b": "09:00",
+      "a_date": "2026-10-12",
+      "b_date": "2026-10-12",
+      "differs": true
+     },
+     "date": "2026-10-12",
+     "days": 1,
+     "under_way": false,
+     "past": false
+    },
+    {
+     "title": "Ferry: Newcastle to Amsterdam",
+     "mode": "ferry",
+     "flights": [],
+     "from": "North Shields",
+     "to": "IJmuiden",
+     "location": "North Shields - IJmuiden",
+     "description": null,
+     "calendar": "calendar.travel",
+     "all_day": false,
+     "people": [],
+     "depart": "2026-10-31T06:15:00+01:00",
+     "arrive": "2026-10-31T08:45:00+01:00",
+     "depart_clocks": {
+      "a": "05:15",
+      "b": "06:15",
+      "a_date": "2026-10-31",
+      "b_date": "2026-10-31",
+      "differs": true
+     },
+     "arrive_clocks": {
+      "a": "07:45",
+      "b": "08:45",
+      "a_date": "2026-10-31",
+      "b_date": "2026-10-31",
+      "differs": true
+     },
+     "date": "2026-10-31",
+     "days": 20,
+     "under_way": false,
+     "past": false
+    }
+   ],
+   "count": 2
+  }
+ },
+ {
+  "entity_id": "sensor.family_board_chores_mark",
+  "state": "2",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Chores Mark",
+   "family_board": "chores",
+   "person": {
+    "id": "mark",
+    "name": "Mark",
+    "short": "Mark",
+    "colour": "#4f8cff",
+    "role": "adult",
+    "chores_entity": "todo.chores_mark"
+   },
+   "todo_entity": "todo.chores_mark",
+   "open": [
+    {
+     "uid": "m1",
+     "summary": "Empty the dishwasher",
+     "title": "Empty the dishwasher",
+     "points": 1,
+     "due": "2026-10-11",
+     "done": false,
+     "overdue": false
+    },
+    {
+     "uid": "m2",
+     "summary": "Book the car in (3 pts)",
+     "title": "Book the car in",
+     "points": 3,
+     "due": null,
+     "done": false,
+     "overdue": false
+    }
+   ],
+   "later": [],
+   "done": [],
+   "done_today": [],
+   "open_count": 2,
+   "open_points": 4,
+   "points_today": 0,
+   "points_week": 1,
+   "done_week": 1,
+   "week_start": "2026-10-05"
+  }
+ },
+ {
+  "entity_id": "sensor.family_board_chores_malin",
+  "state": "0",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Chores Malin",
+   "family_board": "chores",
+   "person": {
+    "id": "malin",
+    "name": "Malin",
+    "short": "Malin",
+    "colour": "#ff6b6b",
+    "role": "adult",
+    "chores_entity": "todo.chores_malin"
+   },
+   "todo_entity": "todo.chores_malin",
+   "open": [],
+   "later": [
+    {
+     "uid": "a1",
+     "summary": "Water the plants",
+     "title": "Water the plants",
+     "points": 1,
+     "due": "2026-10-13",
+     "done": false
+    }
+   ],
+   "done": [],
+   "done_today": [],
+   "open_count": 0,
+   "open_points": 0,
+   "points_today": 0,
+   "points_week": 0,
+   "done_week": 0,
+   "week_start": "2026-10-05"
+  }
+ },
+ {
+  "entity_id": "sensor.family_board_chores_nicolai",
+  "state": "2",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Chores Nicolai",
+   "family_board": "chores",
+   "person": {
+    "id": "nicolai",
+    "name": "Nicolai",
+    "short": "Nicolai",
+    "colour": "#51cf66",
+    "role": "child",
+    "chores_entity": "todo.chores_nicolai"
+   },
+   "todo_entity": "todo.chores_nicolai",
+   "open": [
+    {
+     "uid": "n2",
+     "summary": "Hoover the stairs",
+     "title": "Hoover the stairs",
+     "points": 1,
+     "due": "2026-10-10",
+     "done": false,
+     "overdue": true
+    },
+    {
+     "uid": "n1",
+     "summary": "Bins out (2 pts)",
+     "title": "Bins out",
+     "points": 2,
+     "due": "2026-10-11",
+     "done": false,
+     "overdue": false
+    }
+   ],
+   "later": [
+    {
+     "uid": "n4",
+     "summary": "Tidy room",
+     "title": "Tidy room",
+     "points": 1,
+     "due": "2026-10-14",
+     "done": false
+    }
+   ],
+   "done": [
+    {
+     "uid": "n3",
+     "summary": "Feed the cat",
+     "title": "Feed the cat",
+     "points": 1,
+     "due": "2026-10-11",
+     "done": true
+    }
+   ],
+   "done_today": [
+    {
+     "title": "Feed the cat",
+     "points": 1,
+     "at": "2026-10-11T10:12:00+02:00"
+    }
+   ],
+   "open_count": 2,
+   "open_points": 3,
+   "points_today": 1,
+   "points_week": 3,
+   "done_week": 2,
+   "week_start": "2026-10-05"
+  }
+ }
+]
