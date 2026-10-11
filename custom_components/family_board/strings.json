@@ -2,6 +2,13 @@
   "config": {
     "step": {
       "user": {
+        "title": "Family Board",
+        "menu_options": {
+          "board": "The family board (household, homes, calendars)",
+          "microsoft": "A Microsoft account (Outlook calendars and To Do lists)"
+        }
+      },
+      "board": {
         "title": "The household and its homes",
         "description": "Name the household and the two homes it lives between. The board shows every time on both homes' clocks whenever they differ.",
         "data": {
@@ -14,17 +21,51 @@
       },
       "calendars": {
         "title": "Which calendars feed the board",
-        "description": "All optional, and all changeable later under Configure. People's own calendars are set on each person. Trips are also found by their titles (flight numbers, ferry, train) on everyone's calendars.",
+        "description": "All optional, and all changeable later under Configure. People's own calendars are set on each person. Trips are also found by their titles (flight numbers, ferry, train) on everyone's calendars. Sign a Microsoft account in first if the calendars you want are not here yet.",
         "data": {
           "household_calendars": "Household calendars (events for everyone)",
           "birthday_calendars": "Birthday calendars (Outlook's Birthdays, or a shared one)",
           "events_calendars": "Events board calendars (what you have tickets for)",
           "trips_calendars": "Trip calendars (every event on these is a journey)"
         }
+      },
+      "microsoft": {
+        "title": "Sign a Microsoft account in",
+        "description": "Work, school or personal (Outlook.com, Hotmail). The next screen shows a code to type in on your phone; the account's calendars and To Do lists then become entities here. The defaults are the Family Hub app registration.",
+        "data": {
+          "client_id": "Application (client) ID",
+          "tenant": "Tenant (common, organizations, consumers or a tenant id)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in again",
+        "description": "Microsoft will no longer refresh {account}'s access. Press Submit for a new code and sign in again on your phone."
+      },
+      "pick": {
+        "title": "Calendars and lists",
+        "description": "Signed in as {account}. Pick what this house should see. The name goes in front of the entity ids (calendar.mark_calendar); use the same name in every house so the ids match.",
+        "data": {
+          "account_name": "Name for this account",
+          "calendar_ids": "Calendars",
+          "list_ids": "To Do lists",
+          "account_scan_minutes": "Minutes between reads"
+        }
       }
     },
+    "progress": {
+      "signin": "On your phone or laptop, open {url} and enter the code **{code}**, then sign in as the account you want to connect. This screen moves on by itself once the sign-in is approved. The code is good for 15 minutes."
+    },
+    "error": {
+      "cannot_connect": "Microsoft could not be reached. Try again in a minute."
+    },
     "abort": {
-      "already_configured": "There is already a Family Board. Configure it, or add people from its page."
+      "already_configured": "There is already a Family Board, or that Microsoft account is already signed in.",
+      "signin_declined": "The sign-in was declined on the other device. Nothing has been connected.",
+      "signin_expired": "That code expired before it was used. Start again for a new one.",
+      "signin_failed": "The sign-in did not complete.",
+      "cannot_connect": "Microsoft could not be reached.",
+      "wrong_account": "That is a different Microsoft account from the one this entry was set up with.",
+      "reauth_successful": "Signed in again."
     }
   },
   "options": {
@@ -50,7 +91,21 @@
           "default_points": "Points for a chore with none in its title",
           "count_vanished_as_done": "A chore that disappears from its list counts as done"
         }
+      },
+      "account": {
+        "title": "Calendars and lists",
+        "description": "Signed in as {account}. Pick what this house should see.",
+        "data": {
+          "account_name": "Name for this account",
+          "calendar_ids": "Calendars",
+          "list_ids": "To Do lists",
+          "account_scan_minutes": "Minutes between reads"
+        }
       }
+    },
+    "abort": {
+      "not_loaded": "This account is not loaded; sign in again first.",
+      "cannot_connect": "Microsoft could not be reached."
     }
   },
   "config_subentries": {

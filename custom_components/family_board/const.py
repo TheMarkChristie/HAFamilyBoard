@@ -68,3 +68,20 @@ KIND_CHORES = "chores"
 KIND_POINTS = "points"
 
 LEDGER_KEEP_DAYS = 60                              # completed chores are remembered this long for the scoreboards
+
+# two kinds of config entry: the one board, and any number of Microsoft accounts (calendars and To Do lists)
+CONF_KIND = "kind"
+ENTRY_BOARD = "board"
+ENTRY_MICROSOFT = "microsoft"
+CONF_CLIENT_ID = "client_id"
+CONF_TENANT = "tenant"
+CONF_ACCOUNT = "account"                           # {id, name, upn}
+CONF_TOKENS = "tokens"
+CONF_ACCOUNT_NAME = "account_name"                 # the prefix of this account's entity ids
+CONF_CALENDAR_IDS = "calendar_ids"
+CONF_LIST_IDS = "list_ids"
+CONF_ACCOUNT_SCAN = "account_scan_minutes"
+DEFAULT_CLIENT_ID = "6ba638f9-389d-4d0a-b862-0350e84e23bf"   # the Family Hub app registration: public client, device code sign-in
+DEFAULT_TENANT = "common"
+DEFAULT_ACCOUNT_SCAN = 5
+ACCOUNT_DAYS_AHEAD = 14                            # how far an account's calendar entities look for their current/next event

@@ -1,9 +1,8 @@
 # Family Board
 
 The family's calendars, birthdays, events, trips and chores on one Home Assistant dashboard, the same in every house.
-
-Family Board reads the calendars and to-do lists you already have in Home Assistant, whoever provides them (Microsoft
-365, Google, CalDAV, a local calendar), and turns them into a handful of sensors and six cards:
+Self-contained: it signs in to Microsoft itself, turns Outlook calendars and To Do lists into Home Assistant entities,
+builds the board from them, and draws it with its own cards. No other integration is involved.
 
 | Card | What it shows |
 | --- | --- |
@@ -19,18 +18,24 @@ Every time is shown on both homes' clocks whenever they differ: a 14:05 out of E
 ## Install
 
 1. HACS > Integrations > three dots > Custom repositories: add `https://github.com/TheMarkChristie/HAFamilyBoard`
-   as an Integration, then download **Family Board** and restart Home Assistant.
-2. Settings > Devices & services > Add integration > **Family Board**: name the household and its two homes (with
-   their time zones), then pick the calendars that feed the board (all optional, all changeable later under Configure):
+   as an Integration, download **Family Board**, restart Home Assistant.
+2. Settings > Devices & services > Add integration > **Family Board** > **A Microsoft account**. Leave the application
+   id and tenant as they are (the household's own app registration), press Submit, and the next screen shows a code:
+   open the address on your phone, type the code, sign in as the account you want (work, school, Outlook.com or
+   Hotmail) and accept the permissions. The screen moves on by itself. Then give the account a short name (it leads
+   every entity id, so use the same name in every house), tick the calendars and To Do lists this house should see, and
+   finish. Repeat for every account: Mark's work, Mark's personal, Malin's.
+3. Add integration > **Family Board** > **The family board**: name the household and its two homes with their time
+   zones, then pick the calendars that feed the board (all optional, all changeable later under Configure):
    - **Household calendars**: events for everyone (the Household column on Today).
    - **Birthday calendars**: Outlook's own Birthdays calendar, or a shared Family birthdays calendar.
    - **Events board calendars**: the gigs, matches and shows you have tickets for.
    - **Trip calendars**: every event on these is a journey. Trips are also found on everyone's calendars by their
      titles and locations (flight numbers like `DY1356`, "flight", "ferry", "train"; the pattern is an option).
-3. On the integration's page, **Add a person** for each member of the household: name, short name for a narrow column,
-   colour, role, their calendars, their chores list (a to-do entity) and their birthday. **Add a birthday** for anybody
-   the house keeps a date for and nothing else.
-4. Put the cards on a dashboard. Each card finds its sensor by itself, so the whole Family view is:
+4. On the board's page, **Add a person** for each member of the household: name, short name for a narrow column,
+   colour, role, their calendars, their chores list and their birthday. **Add a birthday** for anybody the house keeps
+   a date for and nothing else.
+5. Put the cards on a dashboard. Each card finds its sensor by itself, so the whole Family view is:
 
 ```yaml
 type: sections
@@ -51,24 +56,25 @@ sections:
 The cards' script is served by the integration and registered as a dashboard resource; there is nothing else to
 install. They follow the dashboard's theme and speak English or Norwegian bokmål after the user's language.
 
-## Where the data comes from
+## The Microsoft side
 
-Family Board does not sign in to anything. It calls Home Assistant's own `calendar.get_events` and `todo.get_items`
-actions on the entities you chose, every 10 minutes and again within seconds of any of them changing state. That is
-what makes it the same in two houses: point both installations at the same shared calendars and lists and they show
-the same board.
+The sign-in is the OAuth device code flow against an app registration you own. It needs the registration to be a
+public client (device code allowed) with the delegated permissions `User.Read`, `offline_access`, `Calendars.Read`
+and `Tasks.ReadWrite`, and an audience that includes the accounts you will sign in (work or school in any tenant,
+and personal accounts). No client secret and no redirect URI are needed for this flow. Tokens are refreshed by the
+integration and kept on the config entry; when Microsoft stops refreshing them (a password change, consent withdrawn),
+the entry asks to be signed in again.
 
-For a Microsoft family the shared store is Microsoft 365 or Outlook.com, through two HACS integrations:
+What becomes an entity: a `calendar.<name>_<calendar>` per ticked Outlook calendar (read-only, with the current or
+next event as its state and the full range available to the calendar panel and to `calendar.get_events`), and a
+`todo.<name>_<list>` per ticked To Do list (add, rename, tick, set a due date or a description, delete; all of it
+goes to Microsoft To Do). A repeating task in To Do creates its next occurrence when ticked, which is exactly what a
+chores rota needs. Outlook can also add flights, hotels and trains from confirmation emails to the calendar by itself
+(Settings > Calendar > Events from email), which is how a booking turns into a trip on the board without anybody
+typing it.
 
-- **Microsoft 365 - Calendar** (`RogerSelwyn/MS365-Calendar`): one calendar entity per Outlook calendar, including the
-  Birthdays calendar and any calendar shared with the signed-in account. Outlook can also add flights, hotels and
-  trains from confirmation emails to the calendar by itself (Settings > Calendar > Events from email), which is how a
-  booking turns into a trip on the board without anybody typing it.
-- **Microsoft 365 - To Do** (`RogerSelwyn/MS365-ToDo`): one to-do entity per Microsoft To Do list, shared lists
-  included. A repeating task in To Do (daily, weekly, chosen days) creates its next occurrence when ticked, which is
-  exactly what a chores rota needs. Turn on **show completed** for the lists you use as chores.
-
-Google Calendar, Google Tasks, CalDAV and the core Local calendar and Local to-do work the same way.
+Family Board's own board reads entities, not Microsoft, so Google Calendar, Google Tasks, CalDAV and the core Local
+calendar and Local to-do feed it just as well.
 
 ## Sensors
 
@@ -95,14 +101,12 @@ time, so the board keeps its own ledger: an item that was open at one read and c
 on, gone) at the next was done in between, by the person whose list it is. Points this week count from Monday. The
 ledger is kept for 60 days in the integration's storage.
 
-Ticking a chore on the card calls `todo.update_item` on that person's list, so it is ticked in Microsoft To Do (or
-wherever the list lives) too.
-
 ## Options
 
-Configure on the integration: the homes, the calendars, the trip pattern, days in the week-ahead list (7), days the
-Events board looks ahead (365), days trips are looked for (180), minutes between reads (10), default points (1), and
-whether a chore that disappears from its list counts as done (off).
+Board (Configure): the homes, the calendars, the trip pattern, days in the week-ahead list (7), days the Events board
+looks ahead (365), days trips are looked for (180), minutes between reads (10), default points (1), and whether a
+chore that disappears from its list counts as done (off). Account (Configure): its name, the calendars and lists,
+minutes between reads (5).
 
 Card options: every card takes `entity` (a sensor other than the default) and `title` (`""` for none). Today:
 `max_per_column` (6), `show_household`, `show_location`. Week: `max_items` (12), `show_location`. Birthdays: `limit`
@@ -112,12 +116,15 @@ one), `show_people`. Chores: `entities` (which people's chores sensors, default 
 
 ## Troubleshooting
 
-- A card says there is no Family Board sensor: the integration is not set up, or the card's `entity` names a sensor
-  that does not exist.
+- The sign-in screen says the code expired: it lasts 15 minutes; start again for a new one.
+- "Needs admin approval" at sign-in: the account's tenant does not let users consent to the permissions; its admin
+  grants consent once (Entra admin center > Enterprise applications > the app > Permissions), then sign in again.
+- A card says there is no Family Board sensor: the board is not set up, or the card's `entity` names a sensor that
+  does not exist.
 - A person has no column: they have no calendars set, or the calendar entity named on them does not exist on this
-  installation (entity ids differ between houses if the Microsoft 365 entries were given different names).
-- Chores never score: the list hides completed items (turn on show completed in Microsoft 365 - To Do), or the item
-  is ticked and deleted elsewhere before the board reads again; `count_vanished_as_done` covers that.
+  installation (entity ids differ between houses if the accounts were given different names).
+- Chores never score: the item is ticked and deleted elsewhere before the board reads again; `count_vanished_as_done`
+  covers that.
 - Trips missing: the event is all-day (only timed events match the pattern; put all-day journeys on a trip calendar),
   or further away than the trip days option.
 - The board is stale: the sensors' `stale` attribute is true and the cards print the time of the last good read; a
@@ -125,7 +132,8 @@ one), `show_people`. Chores: `entities` (which people's chores sensors, default 
 
 ## Development
 
-`python -m pytest tests -q` runs the model's tests; `python tests/render_cards.py` renders all six cards in headless
-Chrome from states the model builds, at phone and wall widths; `python brand/make_brand.py` redraws the icon.
+`python -m pytest tests -q` runs the model's and the Graph parsers' tests; `python tests/render_cards.py` renders all
+six cards in headless Chrome from states the model builds, at phone and wall widths; `python brand/make_brand.py`
+redraws the icon.
 
 MIT licence. Copyright (c) 2026 Mark Christie.
