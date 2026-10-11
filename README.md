@@ -12,6 +12,7 @@ builds the board from them, and draws it with its own cards. No other integratio
 | `custom:family-events-card` | The Events board: what the family has tickets for |
 | `custom:family-trip-card` | The next journey counting down, departure and arrival on both homes' clocks, flight numbers |
 | `custom:family-chores-card` | Everyone's chores today, ticked right there, with points this week |
+- `family-lists-card`: the shopping, packing and to-do lists with their open items, ticked and added to on the card (`sensor.family_board_lists`; options `lists`, `max_items`, `show_add`, `show_empty`).
 
 Every time is shown on both homes' clocks whenever they differ: a 14:05 out of Edinburgh is 15:05 in Oslo.
 
@@ -138,4 +139,5 @@ redraws the icon.
 
 MIT licence. Copyright (c) 2026 Mark Christie.
 
+- **Lists board.** Every Family Board to-do list that is not somebody's chores (or the lists chosen under Configure) is on the Lists board with its open items; tick and add from the card, tap a list's name for the full To-do page.
 - **Events board tags.** Any event on a signed-in account's calendars carrying one of the board's Outlook categories (Concert, Sports, Theatre, Conference by default, editable under Configure) joins the Events board, on top of the dedicated events calendars.

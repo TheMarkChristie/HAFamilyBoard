@@ -428,6 +428,22 @@ def chores_today(items: Iterable[Item], today: date, default: int) -> dict[str, 
             "open_points": sum(c["points"] for c in open_now)}
 
 
+def list_view(entity_id: str, name: str, items: Iterable[Item]) -> dict[str, Any]:
+    """One to-do list for the Lists board: its open items in the list's own order (a note under each, without any
+    migration marker line), and how many are ticked."""
+    open_items: list[dict[str, Any]] = []
+    done = 0
+    for item in items:
+        if item.done:
+            done += 1
+            continue
+        note = " ".join(line.strip() for line in (item.description or "").splitlines()
+                        if line.strip() and not line.strip().startswith("[familyhub:"))
+        open_items.append({"uid": item.uid, "summary": item.summary, "due": item.due.isoformat() if item.due else None,
+                           "note": note or None})
+    return {"entity": entity_id, "name": name, "open": open_items, "open_count": len(open_items), "done_count": done}
+
+
 # ---- the completion ledger ----------------------------------------------------------------------------------------
 # Home Assistant's to-do items carry no completion time, and Microsoft To Do spawns the next occurrence of a repeating
 # chore the moment one is ticked, so the board keeps its own record: an item that was open at one read and completed

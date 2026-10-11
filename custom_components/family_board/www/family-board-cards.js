@@ -8,6 +8,7 @@
  * type: custom:family-events-card       the Events board: what the family has tickets for (sensor.family_board_events)
  * type: custom:family-trip-card         the next journey, counting down, on both homes' clocks (sensor.family_board_trip)
  * type: custom:family-chores-card       everyone's chores today, tick them here, points this week (sensor.family_board_chores_*)
+ * type: custom:family-lists-card        the shopping, packing and to-do lists, ticked and added to here (sensor.family_board_lists)
  *
  * Options every card takes: entity (a sensor other than the default), title ("" for none). The rest are documented on
  * each card below. Built for a phone first; the columns and lists reflow for a wall screen.
@@ -26,6 +27,8 @@
       trip: "Next trip", noTrips: "No trips booked", underWay: "Under way", dayToGo: "day to go", daysToGo: "days to go",
       departs: "Departs", arrives: "Arrives", flight: "Flight",
       chores: "Chores", nothingToDo: "Nothing to do today", allDone: "All done", later: (n) => `${n} for later`,
+      lists: "Lists", noLists: "No lists yet", nothingOnList: "Nothing on the list", addItem: "Add an item", add: "Add",
+      openItems: (n) => `${n} open`,
       points: (n) => `${n} ${n === 1 ? "point" : "points"}`, thisWeek: "this week", missing: (k) => `No Family Board "${k}" sensor yet. Set up the Family Board integration first.`,
     },
     nb: {
@@ -36,6 +39,8 @@
       trip: "Neste reise", noTrips: "Ingen reiser planlagt", underWay: "Underveis", dayToGo: "dag igjen", daysToGo: "dager igjen",
       departs: "Avreise", arrives: "Ankomst", flight: "Fly",
       chores: "Husarbeid", nothingToDo: "Ingenting å gjøre i dag", allDone: "Alt ferdig", later: (n) => `${n} senere`,
+      lists: "Lister", noLists: "Ingen lister ennå", nothingOnList: "Ingenting på lista", addItem: "Legg til noe", add: "Legg til",
+      openItems: (n) => `${n} åpne`,
       points: (n) => `${n} poeng`, thisWeek: "denne uka", missing: (k) => `Ingen Family Board-sensor "${k}" ennå. Sett opp Family Board-integrasjonen først.`,
     },
   };
@@ -106,6 +111,17 @@
     button.chore ha-icon { --mdc-icon-size: 22px; color: var(--secondary-text-color); }
     button.chore.done ha-icon, button.chore.pending ha-icon { color: var(--success-color, #43a047); }
     .pt { font-size: 0.78em; color: var(--secondary-text-color); white-space: nowrap; }
+    .list { padding: 10px 16px 2px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .list ha-icon { --mdc-icon-size: 20px; color: var(--primary-color); }
+    .list .nm { font-weight: 600; color: var(--primary-text-color); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .list .cnt { margin-left: auto; font-size: 0.85em; color: var(--secondary-text-color); white-space: nowrap; }
+    button.chore.new { opacity: 0.55; }
+    button.chore.new .ti { text-decoration: none; color: var(--primary-text-color); }
+    .addrow { display: flex; gap: 8px; padding: 6px 16px 8px; }
+    .addrow input { flex: 1; min-width: 0; font: inherit; padding: 6px 10px; border-radius: 8px; color: var(--primary-text-color);
+                    border: 1px solid var(--divider-color, rgba(127,127,127,0.3)); background: var(--card-background-color, transparent); }
+    .addrow button { font: inherit; padding: 6px 12px; border-radius: 8px; border: none; cursor: pointer;
+                     background: var(--primary-color); color: var(--text-primary-color, #fff); }
     .stale { padding: 0 16px 4px; font-size: 0.75em; color: var(--warning-color, #e0a800); }
   `;
 
@@ -463,6 +479,125 @@
     }
   }
 
+
+  /* ---- Lists: shopping, packing and to-do lists, ticked and added to here ------------------------------------------ */
+  function listIcon(name) {
+    const n = String(name || "").toLowerCase();
+    if (/tesco|rema|kiwi|coop|meny|spar|asda|lidl|aldi|ikea|shop|handle|butikk|grocer|food|\bmat\b/.test(n)) return "mdi:cart-outline";
+    if (/pack|koffert|suitcase|bag|reise|travel/.test(n)) return "mdi:bag-suitcase-outline";
+    return "mdi:format-list-checks";
+  }
+  class FamilyListsCard extends FamilyCard {
+    static get kind() { return "lists"; }
+    static get defaults() { return { title: null, lists: null, max_items: 6, show_add: true, show_empty: true }; }
+    constructor() {
+      super();
+      this._pending = new Set();
+      this._adding = {};
+      this._focus = null;
+      this.addEventListener("click", (e) => {
+        if (!this._hass || !e.target.closest) return;
+        const tick = e.target.closest("button.chore");
+        if (tick) { if (!tick.disabled && !tick.classList.contains("pending")) this._tick(tick); return; }
+        const add = e.target.closest("button.add");
+        if (add) { this._add(add.dataset.entity); return; }
+        const head = e.target.closest(".list[data-nav]");
+        if (head) { history.pushState(null, "", head.dataset.nav); window.dispatchEvent(new CustomEvent("location-changed")); }
+      });
+      this.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && e.target.classList && e.target.classList.contains("new")) { e.preventDefault(); this._add(e.target.dataset.entity); }
+      });
+    }
+    _tick(b) {
+      const uid = b.dataset.uid, entity = b.dataset.entity;
+      if (!uid || !entity) return;
+      this._pending.add(uid);
+      b.classList.add("pending");
+      const icon = b.querySelector("ha-icon");
+      if (icon) icon.setAttribute("icon", "mdi:checkbox-marked");
+      this._hass.callService("todo", "update_item", { entity_id: entity, item: uid, status: "completed" }).catch(() => {
+        this._pending.delete(uid);
+        b.classList.remove("pending");
+        if (icon) icon.setAttribute("icon", "mdi:checkbox-blank-outline");
+      });
+    }
+    _input(entity) {
+      for (const el of this.querySelectorAll("input.new")) if (el.dataset.entity === entity) return el;
+      return null;
+    }
+    _add(entity) {
+      const input = this._input(entity);
+      const text = input ? input.value.trim() : "";
+      if (!text || !entity) return;
+      input.value = "";
+      (this._adding[entity] = this._adding[entity] || []).push(text);
+      this._focus = entity;
+      this._sig = null;
+      this._render();
+      this._hass.callService("todo", "add_item", { entity_id: entity, item: text }).catch(() => {
+        this._adding[entity] = (this._adding[entity] || []).filter((t) => t !== text);
+        this._sig = null;
+        this._render();
+      });
+    }
+    _render() {
+      /* a redraw keeps what is being typed, and the focus with it */
+      let focus = this._focus;
+      this._focus = null;
+      const drafts = {};
+      const root = this.getRootNode ? this.getRootNode() : document;
+      const active = (root && root.activeElement) || document.activeElement;
+      for (const el of this.querySelectorAll("input.new")) {
+        if (el.value) drafts[el.dataset.entity] = el.value;
+        if (el === active) focus = el.dataset.entity;
+      }
+      const before = this._sig;
+      super._render();
+      if (this._sig === before) return;
+      for (const el of this.querySelectorAll("input.new")) {
+        if (drafts[el.dataset.entity]) el.value = drafts[el.dataset.entity];
+        if (focus === el.dataset.entity) el.focus();
+      }
+    }
+    _body(st, s, f) {
+      const a = st.attributes;
+      const title = this._config.title === null ? s.lists : this._config.title;
+      let lists = a.lists || [];
+      const order = Array.isArray(this._config.lists) && this._config.lists.length ? this._config.lists : null;
+      if (order) lists = lists.filter((l) => order.includes(l.entity)).sort((x, y) => order.indexOf(x.entity) - order.indexOf(y.entity));
+      let html = header(title, "");
+      if (!lists.length) return html + `<div class="empty">${esc(s.noLists)}</div>`;
+      const seen = new Set();
+      for (const l of lists) for (const i of l.open || []) seen.add(i.uid);
+      for (const uid of [...this._pending]) if (!seen.has(uid)) this._pending.delete(uid);
+      for (const l of lists) {
+        const open = l.open || [];
+        const adding = (this._adding[l.entity] || []).filter((t) => !open.some((i) => i.summary === t));
+        this._adding[l.entity] = adding;
+        if (!open.length && !adding.length && !this._config.show_empty) continue;
+        html += `<div class="list" data-nav="/todo?entity_id=${encodeURIComponent(l.entity)}"><ha-icon icon="${esc(listIcon(l.name))}"></ha-icon>` +
+          `<span class="nm">${esc(l.name)}</span><span class="cnt">${esc(s.openItems(open.length))}</span></div>`;
+        const max = this._config.max_items > 0 ? this._config.max_items : open.length;
+        const shown = open.slice(0, max);
+        shown.forEach((i, idx) => {
+          const pend = this._pending.has(i.uid);
+          html += `<button class="chore${idx === 0 ? " first" : ""}${pend ? " pending" : ""}" data-uid="${esc(i.uid)}" data-entity="${esc(l.entity)}">` +
+            `<ha-icon icon="${pend ? "mdi:checkbox-marked" : "mdi:checkbox-blank-outline"}"></ha-icon><span><span class="ti">${esc(i.summary)}</span>` +
+            (i.note ? `<div class="du">${esc(i.note)}</div>` : "") + `</span><span></span></button>`;
+        });
+        adding.forEach((t, idx) => {
+          html += `<button class="chore new${!shown.length && idx === 0 ? " first" : ""}" disabled><ha-icon icon="mdi:checkbox-blank-outline"></ha-icon>` +
+            `<span class="ti">${esc(t)}</span><span></span></button>`;
+        });
+        if (open.length > shown.length) html += `<div class="more" style="padding:2px 16px 4px">${esc(s.more(open.length - shown.length))}</div>`;
+        if (!open.length && !adding.length) html += `<div class="empty">${esc(s.nothingOnList)}</div>`;
+        if (this._config.show_add) html += `<div class="addrow"><input class="new" type="text" data-entity="${esc(l.entity)}" placeholder="${esc(s.addItem)}" ` +
+          `enterkeyhint="done" autocomplete="off"><button class="add" data-entity="${esc(l.entity)}">${esc(s.add)}</button></div>`;
+      }
+      return html;
+    }
+  }
+
   const CARDS = [
     ["family-today-card", FamilyTodayCard, "Family Board: Today", "Today, one column per person and one for everyone."],
     ["family-week-card", FamilyWeekCard, "Family Board: Week ahead", "The days ahead, grouped by day, with who each event is for."],
@@ -470,6 +605,7 @@
     ["family-events-card", FamilyEventsCard, "Family Board: Events", "The Events board: what the family has tickets for."],
     ["family-trip-card", FamilyTripCard, "Family Board: Next trip", "The next journey, counting down, with departure on both homes' clocks."],
     ["family-chores-card", FamilyChoresCard, "Family Board: Chores", "Everyone's chores today, ticked here, with points this week."],
+    ["family-lists-card", FamilyListsCard, "Family Board: Lists", "The shopping, packing and to-do lists, ticked and added to here."],
   ];
   window.customCards = window.customCards || [];
   for (const [tag, cls, name, description] of CARDS) {

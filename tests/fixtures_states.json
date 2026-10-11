@@ -996,5 +996,105 @@
    "done_week": 2,
    "week_start": "2026-10-05"
   }
+ },
+ {
+  "entity_id": "sensor.family_board_lists",
+  "state": "4",
+  "last_updated": "2026-10-11T10:12:00+02:00",
+  "attributes": {
+   "household": "The Hus",
+   "homes": [
+    {
+     "name": "Scotland",
+     "tz": "Europe/London"
+    },
+    {
+     "name": "Norway",
+     "tz": "Europe/Oslo"
+    }
+   ],
+   "people": [
+    {
+     "id": "mark",
+     "name": "Mark",
+     "short": "Mark",
+     "colour": "#4f8cff",
+     "role": "adult",
+     "chores_entity": "todo.chores_mark"
+    },
+    {
+     "id": "malin",
+     "name": "Malin",
+     "short": "Malin",
+     "colour": "#ff6b6b",
+     "role": "adult",
+     "chores_entity": "todo.chores_malin"
+    },
+    {
+     "id": "nicolai",
+     "name": "Nicolai",
+     "short": "Nicolai",
+     "colour": "#51cf66",
+     "role": "child",
+     "chores_entity": "todo.chores_nicolai"
+    }
+   ],
+   "date": "2026-10-11",
+   "tz": "Europe/Oslo",
+   "stale": false,
+   "updated": "2026-10-11T10:12:00+02:00",
+   "friendly_name": "Family Board Lists",
+   "family_board": "lists",
+   "lists": [
+    {
+     "entity": "todo.new_house",
+     "name": "New House",
+     "open": [
+      {
+       "uid": "l1",
+       "summary": "Smart light switches",
+       "due": null,
+       "note": "Aisle: Other"
+      },
+      {
+       "uid": "l2",
+       "summary": "Downstairs sofa",
+       "due": null,
+       "note": null
+      },
+      {
+       "uid": "l3",
+       "summary": "Robot lawn mower",
+       "due": null,
+       "note": "Husqvarna or Segway"
+      }
+     ],
+     "open_count": 3,
+     "done_count": 1
+    },
+    {
+     "entity": "todo.tesco",
+     "name": "Tesco",
+     "open": [
+      {
+       "uid": "t1",
+       "summary": "Milk 2 l",
+       "due": null,
+       "note": null
+      }
+     ],
+     "open_count": 1,
+     "done_count": 1
+    },
+    {
+     "entity": "todo.oslo_packing",
+     "name": "Oslo packing list",
+     "open": [],
+     "open_count": 0,
+     "done_count": 0
+    }
+   ],
+   "count": 4
+  }
  }
 ]

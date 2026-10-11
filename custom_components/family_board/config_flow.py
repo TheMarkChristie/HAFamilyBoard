@@ -54,6 +54,7 @@ from .const import (
     CONF_DEFAULT_POINTS,
     CONF_EVENTS_CALENDARS,
     CONF_EVENTS_TAGS,
+    CONF_LISTS,
     DEFAULT_EVENTS_TAGS,
     CONF_HOME_A_NAME,
     CONF_HOME_A_TZ,
@@ -129,6 +130,7 @@ CALENDARS_SCHEMA = vol.Schema({
     vol.Optional(CONF_EVENTS_TAGS, default=DEFAULT_EVENTS_TAGS): SelectSelector(
         SelectSelectorConfig(options=DEFAULT_EVENTS_TAGS, multiple=True, custom_value=True, mode=SelectSelectorMode.LIST)),
     vol.Optional(CONF_TRIPS_CALENDARS): _calendars(),
+    vol.Optional(CONF_LISTS): EntitySelector(EntitySelectorConfig(domain="todo", multiple=True)),
 })
 
 TUNING_SCHEMA = vol.Schema({

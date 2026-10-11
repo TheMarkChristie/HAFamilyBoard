@@ -186,3 +186,16 @@ def test_tags_match_outlook_categories_loosely():
     assert m.has_tag(["Concert", "Fun"], ["concert", "Sports"])
     assert m.has_tag([" sports "], ["Sports"])
     assert not m.has_tag(["Work"], ["Concert"]) and not m.has_tag(None, ["Concert"]) and not m.has_tag(["Concert"], [])
+
+
+def test_list_view_keeps_order_and_drops_the_migration_marker():
+    items = m.parse_items({"items": [
+        {"uid": "a", "summary": "Milk 2 l", "status": "needs_action", "description": "[familyhub:x]\nAisle: Dairy"},
+        {"uid": "b", "summary": "Eggs", "status": "completed"},
+        {"uid": "c", "summary": "Bread", "status": "needs_action", "due": "2026-10-16"},
+    ]}, OSLO)
+    view = m.list_view("todo.tesco", "Tesco", items)
+    assert [i["summary"] for i in view["open"]] == ["Milk 2 l", "Bread"]
+    assert view["open"][0]["note"] == "Aisle: Dairy" and view["open"][1]["note"] is None
+    assert view["open"][1]["due"] == "2026-10-16"
+    assert view["open_count"] == 2 and view["done_count"] == 1 and view["entity"] == "todo.tesco"

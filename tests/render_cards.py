@@ -124,6 +124,17 @@ def sample_states(now: datetime) -> list[dict]:
                              "done": view["done"], "done_today": view["done_today"], "open_count": view["open_count"], "open_points": view["open_points"],
                              "points_today": view["points_today"], "points_week": view["points_week"], "done_week": view["done_week"],
                              "week_start": view["week_start"]}, f"Family Board Chores {p.name}"))
+    list_items = {
+        "todo.new_house": ("New House", [{"uid": "l1", "summary": "Smart light switches", "status": "needs_action", "description": "[familyhub:1]\nAisle: Other"},
+                                         {"uid": "l2", "summary": "Downstairs sofa", "status": "needs_action"},
+                                         {"uid": "l3", "summary": "Robot lawn mower", "status": "needs_action", "description": "Husqvarna or Segway"},
+                                         {"uid": "l4", "summary": "Computer desk", "status": "completed"}]),
+        "todo.tesco": ("Tesco", [{"uid": "t1", "summary": "Milk 2 l", "status": "needs_action"}, {"uid": "t2", "summary": "Eggs", "status": "completed"}]),
+        "todo.oslo_packing": ("Oslo packing list", []),
+    }
+    lists = [m.list_view(eid, name, m.parse_items({"items": raw}, OSLO)) for eid, (name, raw) in list_items.items()]
+    states.append(state("sensor.family_board_lists", sum(l["open_count"] for l in lists),
+                        {"family_board": "lists", "lists": lists, "count": sum(l["open_count"] for l in lists)}, "Family Board Lists"))
     return states
 
 
@@ -141,7 +152,7 @@ const states={states};
 const hass={{states, locale:{{language:"{language}", time_format:"24", time_zone:"server"}}, config:{{time_zone:"Europe/Oslo"}},
   callService:(d,s,data)=>{{console.log('callService',d,s,JSON.stringify(data));return Promise.resolve();}}}};
 const grid=document.createElement("div"); grid.className="grid"; document.body.appendChild(grid);
-for (const [tag, cfg] of [["family-today-card",{{}}],["family-trip-card",{{show_all:true}}],["family-week-card",{{}}],["family-chores-card",{{}}],
+for (const [tag, cfg] of [["family-today-card",{{}}],["family-trip-card",{{show_all:true}}],["family-week-card",{{}}],["family-chores-card",{{}}],["family-lists-card",{{}}],
                            ["family-birthdays-card",{{}}],["family-events-card",{{}}]]) {{
   const card=document.createElement(tag); card.setConfig(cfg); grid.appendChild(card); card.hass=hass;
 }}

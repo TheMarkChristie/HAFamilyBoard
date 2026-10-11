@@ -10,7 +10,7 @@ from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN, KIND_BIRTHDAYS, KIND_CHORES, KIND_EVENTS, KIND_POINTS, KIND_TODAY, KIND_TRIP, KIND_WEEK, NAME
+from .const import DOMAIN, KIND_BIRTHDAYS, KIND_CHORES, KIND_EVENTS, KIND_LISTS, KIND_POINTS, KIND_TODAY, KIND_TRIP, KIND_WEEK, NAME
 from .coordinator import FamilyBoardCoordinator
 from .model import Person
 
@@ -20,12 +20,13 @@ BOARD_KINDS = {
     KIND_BIRTHDAYS: ("Birthdays", "mdi:cake-variant"),
     KIND_EVENTS: ("Events board", "mdi:ticket-confirmation"),
     KIND_TRIP: ("Next trip", "mdi:airplane-takeoff"),
+    KIND_LISTS: ("Lists", "mdi:format-list-checks"),
 }
 MODE_ICON = {"flight": "mdi:airplane-takeoff", "ferry": "mdi:ferry", "train": "mdi:train", "car": "mdi:car", "other": "mdi:bag-suitcase"}
 
 # the lists are the board, not history: keep them out of the recorder
 BIG = frozenset({"all_day", "columns", "everyone", "days", "upcoming", "today_birthdays", "events", "trips", "trip", "open",
-                 "later", "done", "done_today", "people", "homes", "next"})
+                 "later", "done", "done_today", "people", "homes", "next", "lists"})
 
 
 async def async_setup_entry(hass: HomeAssistant, entry, async_add_entities: AddConfigEntryEntitiesCallback) -> None:
@@ -81,6 +82,8 @@ class BoardSensor(_Base):
             return nxt["days"] if nxt else None
         if self.kind == KIND_EVENTS:
             return len(data.get("events") or [])
+        if self.kind == KIND_LISTS:
+            return sum(int(l.get("open_count", 0)) for l in data.get("lists") or [])
         nxt = (data.get("trips") or {}).get("next")
         return nxt["days"] if nxt else None
 
@@ -108,6 +111,9 @@ class BoardSensor(_Base):
                           "count": b.get("count", 0)})
         elif self.kind == KIND_EVENTS:
             attrs.update({"events": data.get("events") or [], "count": len(data.get("events") or [])})
+        elif self.kind == KIND_LISTS:
+            lists = data.get("lists") or []
+            attrs.update({"lists": lists, "count": sum(int(l.get("open_count", 0)) for l in lists)})
         else:
             t = data.get("trips") or {}
             attrs.update({"trip": t.get("next"), "trips": t.get("trips", []), "count": t.get("count", 0)})

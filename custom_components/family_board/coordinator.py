@@ -4,6 +4,7 @@ and keeps the chores ledger that the scoreboards are built from."""
 from __future__ import annotations
 
 import logging
+import re
 from datetime import date, datetime, timedelta
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -29,6 +30,8 @@ from .const import (
     CONF_DEFAULT_POINTS,
     CONF_EVENTS_CALENDARS,
     CONF_EVENTS_TAGS,
+    CONF_LISTS,
+    NAME,
     CONF_KIND,
     ENTRY_MICROSOFT,
     CONF_HOME_A_NAME,
@@ -67,6 +70,7 @@ from .model import (
     assign_people,
     birthdays,
     chores_today,
+    list_view,
     dedupe,
     events_board,
     ledger_update,
@@ -80,6 +84,7 @@ from .model import (
 )
 
 _LOGGER = logging.getLogger(__name__)
+CHORES_LIST = re.compile(r"\b(chores?|husarbeid|oppgaver)\b", re.I)   # a list named like this is somebody's chores, not a list
 
 SLOW_EVERY = timedelta(minutes=60)   # the long look-aheads (trips, the Events board, birthdays) are re-read this often
 RETRY_MINUTES = 2
@@ -106,6 +111,8 @@ class FamilyBoardCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._slow_at: datetime | None = None
         self._slow: dict[str, list[Occurrence]] = {"trips": [], "events": [], "birthdays": []}
         self._main: list[Occurrence] = []
+        self._unwatch: callable | None = None
+        self._watching: list[str] = []
 
     # ---- settings ---------------------------------------------------------------------------------------------------
 
@@ -169,7 +176,24 @@ class FamilyBoardCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             ids += person.calendars
             if person.chores:
                 ids.append(person.chores)
+        ids += self.list_entities
         return sorted(set(ids))
+
+    @property
+    def list_entities(self) -> list[str]:
+        """The Lists board: the chosen to-do lists, else every Family Board list that is nobody's chores."""
+        chosen = self._list(CONF_LISTS)
+        if chosen:
+            return chosen
+        chores = {p.chores for p in self.people if p.chores}
+        out: list[str] = []
+        for state in self.hass.states.async_all("todo"):
+            if state.attributes.get("integration") != NAME or state.entity_id in chores:
+                continue
+            if CHORES_LIST.search(str(state.attributes.get("list_name") or state.name or "")):
+                continue
+            out.append(state.entity_id)
+        return sorted(out)
 
     # ---- persistence and watching -------------------------------------------------------------------------------------
 
@@ -189,17 +213,36 @@ class FamilyBoardCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         await self._store.async_remove()
 
     @callback
-    def async_watch(self) -> callable:
-        """Refresh soon after any watched calendar or list changes state (a tick, a new event, a sync)."""
+    def _rearm(self) -> None:
+        """Watch the current set of entities: at start, and again after a read in case a list has come or gone."""
         watched = self.watched
+        if watched == self._watching:
+            return
+        if self._unwatch:
+            self._unwatch()
+            self._unwatch = None
+        self._watching = watched
         if not watched:
-            return lambda: None
+            return
 
         @callback
         def _changed(_event: Event[EventStateChangedData]) -> None:
             self.hass.async_create_task(self.async_request_refresh())
 
-        return async_track_state_change_event(self.hass, watched, _changed)
+        self._unwatch = async_track_state_change_event(self.hass, watched, _changed)
+
+    @callback
+    def async_watch(self) -> callable:
+        """Refresh soon after any watched calendar or list changes state (a tick, a new event, a sync)."""
+        self._rearm()
+
+        def _stop() -> None:
+            if self._unwatch:
+                self._unwatch()
+                self._unwatch = None
+            self._watching = []
+
+        return _stop
 
     # ---- reading ----------------------------------------------------------------------------------------------------
 
@@ -336,6 +379,17 @@ class FamilyBoardCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             chores.setdefault(person.id, {"person": person.id, "todo_entity": None, "open": [], "later": [], "done": [],
                                           "open_count": 0, "open_points": 0}).update(score)
 
+        # the Lists board: shopping, packing and to-do lists, open items first
+        lists_view: list[dict[str, Any]] = []
+        for entity_id in self.list_entities:
+            items = await self._items(entity_id, tz)
+            if items is None:
+                failed = True
+                continue
+            state = self.hass.states.get(entity_id)
+            name = str((state.attributes.get("list_name") if state else None) or (state.name if state else None) or entity_id)
+            lists_view.append(list_view(entity_id, name, items))
+
         if failed and self.data is None and not self._main and not any(self._slow.values()):
             raise UpdateFailed("none of the calendars or lists could be read")
 
@@ -351,6 +405,8 @@ class FamilyBoardCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             "trips": trips(self._slow["trips"] + [o for o in self._main if o.calendar in trip_calendars], trip_calendars,
                            pattern or None, now, tz, tz_a, tz_b, trip_days),
             "chores": chores,
+            "lists": lists_view,
         }
         self.update_interval = timedelta(minutes=RETRY_MINUTES if failed else int(self._setting(CONF_SCAN_MINUTES, DEFAULT_SCAN_MINUTES)))
+        self._rearm()
         return data

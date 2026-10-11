@@ -89,3 +89,7 @@ ACCOUNT_DAYS_AHEAD = 14                            # how far an account's calend
 # the Events board also takes any event, on any tracked Outlook calendar, carrying one of these categories
 CONF_EVENTS_TAGS = "events_tags"
 DEFAULT_EVENTS_TAGS = ["Concert", "Sports", "Theatre", "Conference"]
+
+# the Lists board: shopping, packing and to-do lists shown with their open items, ticked and added to on the card
+CONF_LISTS = "lists"                               # to-do entities; empty = every Family Board list that is nobody's chores
+KIND_LISTS = "lists"

@@ -27,7 +27,8 @@
           "birthday_calendars": "Birthday calendars (Outlook's Birthdays, or a shared one)",
           "events_calendars": "Events board calendars (what you have tickets for)",
           "trips_calendars": "Trip calendars (every event on these is a journey)",
-          "events_tags": "Events board tags (Outlook categories that put an event on the board)"
+          "events_tags": "Events board tags (Outlook categories that put an event on the board)",
+          "lists": "Lists board (to-do lists shown as lists; empty means every Family Board list that is not somebody's chores)"
         }
       },
       "microsoft": {
@@ -91,7 +92,8 @@
           "scan_minutes": "Minutes between reads",
           "default_points": "Points for a chore with none in its title",
           "count_vanished_as_done": "A chore that disappears from its list counts as done",
-          "events_tags": "Events board tags (Outlook categories that put an event on the board)"
+          "events_tags": "Events board tags (Outlook categories that put an event on the board)",
+          "lists": "Lists board (to-do lists shown as lists; empty means every Family Board list that is not somebody's chores)"
         }
       },
       "account": {
