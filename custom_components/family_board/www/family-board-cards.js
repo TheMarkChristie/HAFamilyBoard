@@ -607,9 +607,23 @@
     ["family-chores-card", FamilyChoresCard, "Family Board: Chores", "Everyone's chores today, ticked here, with points this week."],
     ["family-lists-card", FamilyListsCard, "Family Board: Lists", "The shopping, packing and to-do lists, ticked and added to here."],
   ];
-  window.customCards = window.customCards || [];
-  for (const [tag, cls, name, description] of CARDS) {
-    if (!customElements.get(tag)) customElements.define(tag, cls);
-    if (!window.customCards.some((c) => c.type === tag)) window.customCards.push({ type: tag, name, description, preview: true });
+  /* Home Assistant's frontend replaces the custom element registry's methods as it starts (its scoped-registry
+   * polyfill keeps its own table), so an element defined before that point is reported as not existing afterwards.
+   * This file is imported by the page alongside the frontend itself, so it can run first: register once the frontend's
+   * root element is known, which is immediate when the file arrives as a dashboard resource. */
+  function whenFrontendReady(fn) {
+    const ready = () => !!customElements.get("home-assistant");
+    if (ready()) { fn(); return; }
+    let tries = 0;
+    const timer = setInterval(() => {
+      if (ready() || ++tries > 600) { clearInterval(timer); fn(); }
+    }, 50);
   }
+  whenFrontendReady(() => {
+    window.customCards = window.customCards || [];
+    for (const [tag, cls, name, description] of CARDS) {
+      if (!customElements.get(tag)) customElements.define(tag, cls);
+      if (!window.customCards.some((c) => c.type === tag)) window.customCards.push({ type: tag, name, description, preview: true });
+    }
+  });
 })();

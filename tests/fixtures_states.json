@@ -2,7 +2,7 @@
  {
   "entity_id": "sensor.family_board_today",
   "state": "7",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -41,10 +41,10 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Today",
    "family_board": "today",
    "all_day": [],
@@ -54,8 +54,8 @@
      "events": [
       {
        "summary": "Stand-up",
-       "start": "2026-10-11T09:00:00+02:00",
-       "end": "2026-10-11T10:00:00+02:00",
+       "start": "2026-10-12T09:00:00+02:00",
+       "end": "2026-10-12T10:00:00+02:00",
        "all_day": false,
        "location": "Teams",
        "description": null,
@@ -66,8 +66,8 @@
       },
       {
        "summary": "Dentist",
-       "start": "2026-10-11T13:00:00+02:00",
-       "end": "2026-10-11T14:30:00+02:00",
+       "start": "2026-10-12T13:00:00+02:00",
+       "end": "2026-10-12T14:30:00+02:00",
        "all_day": false,
        "location": "Ski tannlegesenter",
        "description": null,
@@ -78,8 +78,8 @@
       },
       {
        "summary": "Dinner at Granny's",
-       "start": "2026-10-11T18:30:00+02:00",
-       "end": "2026-10-11T20:00:00+02:00",
+       "start": "2026-10-12T18:30:00+02:00",
+       "end": "2026-10-12T20:00:00+02:00",
        "all_day": false,
        "location": null,
        "description": null,
@@ -96,8 +96,8 @@
      "events": [
       {
        "summary": "Fris\u00f8r",
-       "start": "2026-10-11T16:00:00+02:00",
-       "end": "2026-10-11T17:00:00+02:00",
+       "start": "2026-10-12T16:00:00+02:00",
+       "end": "2026-10-12T17:00:00+02:00",
        "all_day": false,
        "location": null,
        "description": null,
@@ -108,8 +108,8 @@
       },
       {
        "summary": "Dinner at Granny's",
-       "start": "2026-10-11T18:30:00+02:00",
-       "end": "2026-10-11T20:00:00+02:00",
+       "start": "2026-10-12T18:30:00+02:00",
+       "end": "2026-10-12T20:00:00+02:00",
        "all_day": false,
        "location": null,
        "description": null,
@@ -126,8 +126,8 @@
      "events": [
       {
        "summary": "School",
-       "start": "2026-10-11T08:00:00+02:00",
-       "end": "2026-10-11T14:00:00+02:00",
+       "start": "2026-10-12T08:00:00+02:00",
+       "end": "2026-10-12T14:00:00+02:00",
        "all_day": false,
        "location": null,
        "description": null,
@@ -138,8 +138,8 @@
       },
       {
        "summary": "Swimming",
-       "start": "2026-10-11T17:30:00+02:00",
-       "end": "2026-10-11T18:30:00+02:00",
+       "start": "2026-10-12T17:30:00+02:00",
+       "end": "2026-10-12T18:30:00+02:00",
        "all_day": false,
        "location": "Langhushallen",
        "description": null,
@@ -154,8 +154,8 @@
    "everyone": [
     {
      "summary": "Bins out",
-     "start": "2026-10-11T07:00:00+02:00",
-     "end": "2026-10-11T07:15:00+02:00",
+     "start": "2026-10-12T07:00:00+02:00",
+     "end": "2026-10-12T07:15:00+02:00",
      "all_day": false,
      "location": null,
      "description": null,
@@ -169,7 +169,7 @@
  {
   "entity_id": "sensor.family_board_week",
   "state": "9",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -208,20 +208,20 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Week ahead",
    "family_board": "week",
    "days": [
     {
-     "date": "2026-10-12",
+     "date": "2026-10-13",
      "events": [
       {
        "summary": "Inset day",
-       "start": "2026-10-12T00:00:00+02:00",
-       "end": "2026-10-13T00:00:00+02:00",
+       "start": "2026-10-13T00:00:00+02:00",
+       "end": "2026-10-14T00:00:00+02:00",
        "all_day": true,
        "location": null,
        "description": null,
@@ -232,8 +232,8 @@
       },
       {
        "summary": "Flight to Edinburgh (DY1356)",
-       "start": "2026-10-12T08:00:00+02:00",
-       "end": "2026-10-12T09:00:00+02:00",
+       "start": "2026-10-13T08:00:00+02:00",
+       "end": "2026-10-13T09:00:00+02:00",
        "all_day": false,
        "location": "Oslo Gardermoen (OSL) to Edinburgh (EDI)",
        "description": null,
@@ -245,12 +245,12 @@
      ]
     },
     {
-     "date": "2026-10-13",
+     "date": "2026-10-14",
      "events": [
       {
        "summary": "Plumber",
-       "start": "2026-10-13T09:00:00+02:00",
-       "end": "2026-10-13T12:00:00+02:00",
+       "start": "2026-10-14T09:00:00+02:00",
+       "end": "2026-10-14T12:00:00+02:00",
        "all_day": false,
        "location": null,
        "description": null,
@@ -259,8 +259,8 @@
       },
       {
        "summary": "Book club",
-       "start": "2026-10-13T19:00:00+02:00",
-       "end": "2026-10-13T21:00:00+02:00",
+       "start": "2026-10-14T19:00:00+02:00",
+       "end": "2026-10-14T21:00:00+02:00",
        "all_day": false,
        "location": "Ingrid's",
        "description": null,
@@ -272,12 +272,12 @@
      ]
     },
     {
-     "date": "2026-10-14",
+     "date": "2026-10-15",
      "events": [
       {
        "summary": "Five-a-side",
-       "start": "2026-10-14T18:00:00+02:00",
-       "end": "2026-10-14T20:00:00+02:00",
+       "start": "2026-10-15T18:00:00+02:00",
+       "end": "2026-10-15T20:00:00+02:00",
        "all_day": false,
        "location": null,
        "description": null,
@@ -289,12 +289,12 @@
      ]
     },
     {
-     "date": "2026-10-15",
+     "date": "2026-10-16",
      "events": [
       {
        "summary": "Football",
-       "start": "2026-10-15T10:00:00+02:00",
-       "end": "2026-10-15T12:00:00+02:00",
+       "start": "2026-10-16T10:00:00+02:00",
+       "end": "2026-10-16T12:00:00+02:00",
        "all_day": false,
        "location": null,
        "description": null,
@@ -306,30 +306,12 @@
      ]
     },
     {
-     "date": "2026-10-16",
-     "events": [
-      {
-       "summary": "Weekend in Perth",
-       "start": "2026-10-16T00:00:00+02:00",
-       "end": "2026-10-19T00:00:00+02:00",
-       "all_day": true,
-       "location": null,
-       "description": null,
-       "people": [
-        "mark",
-        "malin"
-       ],
-       "calendar": "calendar.family"
-      }
-     ]
-    },
-    {
      "date": "2026-10-17",
      "events": [
       {
        "summary": "Weekend in Perth",
-       "start": "2026-10-16T00:00:00+02:00",
-       "end": "2026-10-19T00:00:00+02:00",
+       "start": "2026-10-17T00:00:00+02:00",
+       "end": "2026-10-20T00:00:00+02:00",
        "all_day": true,
        "location": null,
        "description": null,
@@ -346,8 +328,26 @@
      "events": [
       {
        "summary": "Weekend in Perth",
-       "start": "2026-10-16T00:00:00+02:00",
-       "end": "2026-10-19T00:00:00+02:00",
+       "start": "2026-10-17T00:00:00+02:00",
+       "end": "2026-10-20T00:00:00+02:00",
+       "all_day": true,
+       "location": null,
+       "description": null,
+       "people": [
+        "mark",
+        "malin"
+       ],
+       "calendar": "calendar.family"
+      }
+     ]
+    },
+    {
+     "date": "2026-10-19",
+     "events": [
+      {
+       "summary": "Weekend in Perth",
+       "start": "2026-10-17T00:00:00+02:00",
+       "end": "2026-10-20T00:00:00+02:00",
        "all_day": true,
        "location": null,
        "description": null,
@@ -365,8 +365,8 @@
  },
  {
   "entity_id": "sensor.family_board_birthdays",
-  "state": "4",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "state": "3",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -405,49 +405,49 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Birthdays",
    "family_board": "birthdays",
    "next": {
-    "name": "Granny Aileen",
+    "name": "Nicolai",
     "date": "2026-10-15",
-    "days": 4,
-    "age": null,
-    "person": null,
-    "source": "calendar"
+    "days": 3,
+    "age": 10,
+    "person": "nicolai",
+    "source": "person"
    },
    "today_birthdays": [],
    "upcoming": [
     {
-     "name": "Granny Aileen",
+     "name": "Nicolai",
      "date": "2026-10-15",
+     "days": 3,
+     "age": 10,
+     "person": "nicolai",
+     "source": "person"
+    },
+    {
+     "name": "Granny Aileen",
+     "date": "2026-10-16",
      "days": 4,
      "age": null,
      "person": null,
      "source": "calendar"
     },
     {
-     "name": "Nicolai",
-     "date": "2026-10-15",
-     "days": 4,
-     "age": 10,
-     "person": "nicolai",
-     "source": "person"
-    },
-    {
      "name": "Malin",
      "date": "2026-11-02",
-     "days": 22,
+     "days": 21,
      "age": 44,
      "person": "malin",
      "source": "person"
     },
     {
      "name": "Onkel Lars",
-     "date": "2026-11-20",
+     "date": "2026-11-21",
      "days": 40,
      "age": 58,
      "person": null,
@@ -456,7 +456,7 @@
     {
      "name": "Erin",
      "date": "2027-02-28",
-     "days": 140,
+     "days": 139,
      "age": 11,
      "person": null,
      "source": "contact"
@@ -464,7 +464,7 @@
     {
      "name": "Mark",
      "date": "2027-03-03",
-     "days": 143,
+     "days": 142,
      "age": 48,
      "person": "mark",
      "source": "person"
@@ -476,7 +476,7 @@
  {
   "entity_id": "sensor.family_board_events",
   "state": "3",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -515,47 +515,47 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Events board",
    "family_board": "events",
    "events": [
     {
      "summary": "Rosenborg v Molde",
-     "start": "2026-10-13T19:00:00+02:00",
-     "end": "2026-10-13T22:00:00+02:00",
+     "start": "2026-10-14T19:00:00+02:00",
+     "end": "2026-10-14T22:00:00+02:00",
      "all_day": false,
      "location": "Lerkendal",
      "description": null,
      "people": [],
      "calendar": "calendar.events",
-     "date": "2026-10-13",
+     "date": "2026-10-14",
      "days": 2
     },
     {
      "summary": "Ice Nine Kills",
-     "start": "2026-10-20T18:30:00+02:00",
-     "end": "2026-10-20T23:00:00+02:00",
+     "start": "2026-10-21T18:30:00+02:00",
+     "end": "2026-10-21T23:00:00+02:00",
      "all_day": false,
      "location": "Sentrum Scene",
      "description": null,
      "people": [],
      "calendar": "calendar.events",
-     "date": "2026-10-20",
+     "date": "2026-10-21",
      "days": 9
     },
     {
      "summary": "St Johnstone v Dundee United",
-     "start": "2026-11-03T00:00:00+01:00",
-     "end": "2026-11-04T00:00:00+01:00",
+     "start": "2026-11-04T00:00:00+01:00",
+     "end": "2026-11-05T00:00:00+01:00",
      "all_day": true,
      "location": "McDiarmid Park",
      "description": null,
      "people": [],
      "calendar": "calendar.events",
-     "date": "2026-11-03",
+     "date": "2026-11-04",
      "days": 23
     }
    ],
@@ -565,7 +565,7 @@
  {
   "entity_id": "sensor.family_board_trip",
   "state": "1",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -604,10 +604,10 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Next trip",
    "family_board": "trip",
    "trip": {
@@ -625,23 +625,23 @@
     "people": [
      "mark"
     ],
-    "depart": "2026-10-12T08:00:00+02:00",
-    "arrive": "2026-10-12T09:00:00+02:00",
+    "depart": "2026-10-13T08:00:00+02:00",
+    "arrive": "2026-10-13T09:00:00+02:00",
     "depart_clocks": {
      "a": "07:00",
      "b": "08:00",
-     "a_date": "2026-10-12",
-     "b_date": "2026-10-12",
+     "a_date": "2026-10-13",
+     "b_date": "2026-10-13",
      "differs": true
     },
     "arrive_clocks": {
      "a": "08:00",
      "b": "09:00",
-     "a_date": "2026-10-12",
-     "b_date": "2026-10-12",
+     "a_date": "2026-10-13",
+     "b_date": "2026-10-13",
      "differs": true
     },
-    "date": "2026-10-12",
+    "date": "2026-10-13",
     "days": 1,
     "under_way": false,
     "past": false
@@ -662,23 +662,23 @@
      "people": [
       "mark"
      ],
-     "depart": "2026-10-12T08:00:00+02:00",
-     "arrive": "2026-10-12T09:00:00+02:00",
+     "depart": "2026-10-13T08:00:00+02:00",
+     "arrive": "2026-10-13T09:00:00+02:00",
      "depart_clocks": {
       "a": "07:00",
       "b": "08:00",
-      "a_date": "2026-10-12",
-      "b_date": "2026-10-12",
+      "a_date": "2026-10-13",
+      "b_date": "2026-10-13",
       "differs": true
      },
      "arrive_clocks": {
       "a": "08:00",
       "b": "09:00",
-      "a_date": "2026-10-12",
-      "b_date": "2026-10-12",
+      "a_date": "2026-10-13",
+      "b_date": "2026-10-13",
       "differs": true
      },
-     "date": "2026-10-12",
+     "date": "2026-10-13",
      "days": 1,
      "under_way": false,
      "past": false
@@ -694,23 +694,23 @@
      "calendar": "calendar.travel",
      "all_day": false,
      "people": [],
-     "depart": "2026-10-31T06:15:00+01:00",
-     "arrive": "2026-10-31T08:45:00+01:00",
+     "depart": "2026-11-01T06:15:00+01:00",
+     "arrive": "2026-11-01T08:45:00+01:00",
      "depart_clocks": {
       "a": "05:15",
       "b": "06:15",
-      "a_date": "2026-10-31",
-      "b_date": "2026-10-31",
+      "a_date": "2026-11-01",
+      "b_date": "2026-11-01",
       "differs": true
      },
      "arrive_clocks": {
       "a": "07:45",
       "b": "08:45",
-      "a_date": "2026-10-31",
-      "b_date": "2026-10-31",
+      "a_date": "2026-11-01",
+      "b_date": "2026-11-01",
       "differs": true
      },
-     "date": "2026-10-31",
+     "date": "2026-11-01",
      "days": 20,
      "under_way": false,
      "past": false
@@ -722,7 +722,7 @@
  {
   "entity_id": "sensor.family_board_chores_mark",
   "state": "2",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -761,10 +761,10 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Chores Mark",
    "family_board": "chores",
    "person": {
@@ -782,7 +782,7 @@
      "summary": "Empty the dishwasher",
      "title": "Empty the dishwasher",
      "points": 1,
-     "due": "2026-10-11",
+     "due": "2026-10-12",
      "done": false,
      "overdue": false
     },
@@ -802,15 +802,15 @@
    "open_count": 2,
    "open_points": 4,
    "points_today": 0,
-   "points_week": 1,
-   "done_week": 1,
-   "week_start": "2026-10-05"
+   "points_week": 0,
+   "done_week": 0,
+   "week_start": "2026-10-12"
   }
  },
  {
   "entity_id": "sensor.family_board_chores_malin",
   "state": "0",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -849,10 +849,10 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Chores Malin",
    "family_board": "chores",
    "person": {
@@ -871,7 +871,7 @@
      "summary": "Water the plants",
      "title": "Water the plants",
      "points": 1,
-     "due": "2026-10-13",
+     "due": "2026-10-14",
      "done": false
     }
    ],
@@ -882,13 +882,13 @@
    "points_today": 0,
    "points_week": 0,
    "done_week": 0,
-   "week_start": "2026-10-05"
+   "week_start": "2026-10-12"
   }
  },
  {
   "entity_id": "sensor.family_board_chores_nicolai",
   "state": "2",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -927,10 +927,10 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Chores Nicolai",
    "family_board": "chores",
    "person": {
@@ -948,7 +948,7 @@
      "summary": "Hoover the stairs",
      "title": "Hoover the stairs",
      "points": 1,
-     "due": "2026-10-10",
+     "due": "2026-10-11",
      "done": false,
      "overdue": true
     },
@@ -957,7 +957,7 @@
      "summary": "Bins out (2 pts)",
      "title": "Bins out",
      "points": 2,
-     "due": "2026-10-11",
+     "due": "2026-10-12",
      "done": false,
      "overdue": false
     }
@@ -968,7 +968,7 @@
      "summary": "Tidy room",
      "title": "Tidy room",
      "points": 1,
-     "due": "2026-10-14",
+     "due": "2026-10-15",
      "done": false
     }
    ],
@@ -978,7 +978,7 @@
      "summary": "Feed the cat",
      "title": "Feed the cat",
      "points": 1,
-     "due": "2026-10-11",
+     "due": "2026-10-12",
      "done": true
     }
    ],
@@ -986,21 +986,21 @@
     {
      "title": "Feed the cat",
      "points": 1,
-     "at": "2026-10-11T10:12:00+02:00"
+     "at": "2026-10-12T10:12:00+02:00"
     }
    ],
    "open_count": 2,
    "open_points": 3,
    "points_today": 1,
-   "points_week": 3,
-   "done_week": 2,
-   "week_start": "2026-10-05"
+   "points_week": 1,
+   "done_week": 1,
+   "week_start": "2026-10-12"
   }
  },
  {
   "entity_id": "sensor.family_board_lists",
   "state": "4",
-  "last_updated": "2026-10-11T10:12:00+02:00",
+  "last_updated": "2026-10-12T10:12:00+02:00",
   "attributes": {
    "household": "The Hus",
    "homes": [
@@ -1039,10 +1039,10 @@
      "chores_entity": "todo.chores_nicolai"
     }
    ],
-   "date": "2026-10-11",
+   "date": "2026-10-12",
    "tz": "Europe/Oslo",
    "stale": false,
-   "updated": "2026-10-11T10:12:00+02:00",
+   "updated": "2026-10-12T10:12:00+02:00",
    "friendly_name": "Family Board Lists",
    "family_board": "lists",
    "lists": [

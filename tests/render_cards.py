@@ -146,8 +146,9 @@ ha-card{{display:block;background:#1c1c1c;border-radius:12px;margin:8px}} ha-ico
 background:currentColor;opacity:.7;border-radius:4px;transform:scale(.6)}}
 #err{{color:#f66;white-space:pre-wrap;padding:8px}} .grid{{display:grid;grid-template-columns:{columns};gap:4px;width:{width}px}}</style></head><body><div id="err"></div>
 <script>window.onerror=function(m,s,l){{document.getElementById('err').textContent+=m+' @'+l+'\\n'}}</script>
-<script>{card}</script>
-<script>
+<script>customElements.define("home-assistant", class extends HTMLElement {{}});</script>
+<script type="module">{card}</script>
+<script type="module">
 const states={states};
 const hass={{states, locale:{{language:"{language}", time_format:"24", time_zone:"server"}}, config:{{time_zone:"Europe/Oslo"}},
   callService:(d,s,data)=>{{console.log('callService',d,s,JSON.stringify(data));return Promise.resolve();}}}};
